@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>家庭网络卡顿的排查顺序</title>
+<meta name="description" content="网络排查 的实用经验：包含具体步骤、数字参考与常见错误，约 2000 字。">
+<meta name="keywords" content="网络排查,步骤,实用经验,步骤">
+<link rel="canonical" href="">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "家庭网络卡顿的排查顺序", "description": "网络排查 的实用经验整理，包含具体做法与常见错误。", "author": {"@type": "Person", "name": "编辑部"}, "datePublished": "2026-11-13", "inLanguage": "zh-CN"}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "问1：重启路由器能解决大部分问题吗？", "acceptedAnswer": {"@type": "Answer", "text": "能解决一部分“会话表耗尽、临时缓存异常”类问题，但面对LOS告警、拨号691、光衰低于-27dBm等情况基本无效。建议重启不超过2次，每次间隔3—5分钟，仍异常则按分层步骤继续。"}}, {"@type": "Question", "name": "问2：只有手机连Wi‑Fi异常，电脑有线正常，先查什么？", "acceptedAnswer": {"@type": "Answer", "text": "先查该手机是否获取到169.254地址、是否开启随机MAC导致绑定失效，再查2.4GHz信道拥塞与路由器最大接入数（常见上限32—64台）。单台异常时，不要急于更换光猫。"}}, {"@type": "Question", "name": "问3：报修时提供哪些信息能减少上门次数？", "acceptedAnswer": {"@type": "Answer", "text": "提供故障开始时间、影响设备数、指示灯状态、WAN拨号错误代码、光衰数值、已做过的3项操作。信息完整时，运营商一次上门解决率明显提高，通常可减少1次重复上门和24小时等待。"}}]}]}</script>
+<style>
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;max-width:820px;margin:40px auto;padding:0 20px;line-height:1.9;color:#1f2328}
+h1{font-size:28px;line-height:1.4}h2{font-size:21px;margin-top:34px;border-left:4px solid #0b62d6;padding-left:10px}
+h3{font-size:17px;margin-top:22px}ul,ol{padding-left:24px}a{color:#0b62d6;text-decoration:none}a:hover{text-decoration:underline}
+.toc{background:#f6f8fa;border:1px solid #e5e7eb;padding:12px 18px;border-radius:8px;font-size:14px}
+footer{margin-top:44px;border-top:1px solid #eee;padding-top:16px;font-size:14px;color:#57606a}
+</style>
+</head>
+<body>
+<h1>家庭网络卡顿的排查顺序</h1>
+<div class="toc"><strong>目录</strong><br>一、问题与目标　二、具体做法　三、常见错误　四、效果判断　五、常见问题</div>
+<h2>从“网络断了”到恢复可用：一套可复用的排查路径</h2>
+<p>网络故障的表象往往只有一句“上不了网”，背后却可能涉及终端、接入、路由、DNS、运营商等至少5层环节。若没有固定路径，容易在无关环节反复重启设备，平均多耗30—60分钟。下面按“先边界、后分层、再验证”的顺序，给出可直接照做的步骤与常见错误提示，适用于家庭宽带、小型办公室和门店收银网络。</p>
+
+<h2>第一步：确认故障边界（3—5分钟）</h2>
+<p><strong>步骤1：</strong>记录故障开始时间、影响范围（1台设备/全部设备）、是否伴随停电或施工。若只有1台设备异常，优先查该设备；若同一Wi‑Fi下3台以上设备同时异常，转向接入设备排查。<strong>步骤2：</strong>用手机流量打开一个常用页面，确认外部服务本身可用，避免把对方服务器故障误判为本地断网。<strong>步骤3：</strong>观察光猫/路由器指示灯：电源、PON/光信号、LOS、LAN口。LOS红灯或PON灯熄灭，通常指向线路或运营商侧，继续重启意义有限。</p>
+<p><strong>常见错误：</strong>未确认范围就直接拔电重启，导致原本只影响1台设备的问题被扩大到全网；或在LOS告警时反复插拔光纤，增加接口损伤风险。<strong>时间与费用提示：</strong>运营商上门检测通常承诺24—48小时响应，部分区域收取30—80元上门费；若在保修期内且非人为损坏，可免收。</p>
+
+<h2>第二步：分层验证终端与接入（10—20分钟）</h2>
+<p><strong>步骤4：</strong>在故障终端上查看IP获取方式。若地址为169.254.x.x，说明未拿到DHCP地址，检查网线、Wi‑Fi密码与路由器DHCP池是否耗尽（常见池大小50—200个）。<strong>步骤5：</strong>用另一台已知正常设备接同一LAN口或同一Wi‑Fi测试；正常则问题在原终端，异常则问题在接入侧。<strong>步骤6：</strong>有线优先：用一根成品网线直连光猫LAN口与电脑，跳过路由器拨号，观察能否获取地址。若直连正常、经路由器异常，故障点收敛到路由器配置或负载。</p>
+<p><strong>常见错误：</strong>把“Wi‑Fi满格”等同于“网络正常”，忽略2.4GHz拥塞与5GHz穿墙衰减；在20—30台设备同时在线的小型办公场景，低价路由器NAT会话表耗尽会导致“连上但打不开”，此时重启可暂时恢复，但2—4小时可能复发。<strong>金额区间：</strong>更换支持100—200台终端的商用路由器，预算约300—1200元；仅增加一台千兆交换机约80—300元。</p>
+<ul>
+<li>检查网线水晶头是否松动，替换法成本最低（成品线5—20元）。</li>
+<li>确认路由器WAN口灯是否常亮/闪烁，熄灭多为上游链路问题。</li>
+<li>记录DHCP租期，常见为2小时—24小时，租期过短会放大地址冲突。</li>
+</ul>
+
+<h2>第三步：定位路由、DNS与运营商环节（15—30分钟）</h2>
+<p><strong>步骤7：</strong>在终端上分别测试“网关—公网IP—域名”三段连通性：能通网关说明局域网正常；能通公网IP但域名失败，优先改DNS（常用公共DNS响应时间约10—40毫秒）。<strong>步骤8：</strong>登录路由器查看WAN状态：是否获得公网/私网地址、是否频繁掉线。若WAN地址为100.64.x.x，多为运营商级NAT，远程访问类需求需另行申请。<strong>步骤9：</strong>查看路由器日志中PPPoE拨号失败代码，691多为账号密码错误，678/651多为线路或网卡问题。连续3次拨号失败即停止重试，避免账号被临时锁定5—15分钟。</p>
+<p><strong>常见错误：</strong>把DNS故障当成断网，直接报修；或在不清楚账号的情况下反复修改PPPoE密码，导致拨号被锁。<strong>费用提示：</strong>多数家庭宽带月费50—150元，企业专线300—2000元/月；若怀疑线路老化，可要求运营商检测光衰，正常范围通常为-8dBm至-27dBm，低于-27dBm易出现间歇断线。</p>
+
+<h2>第四步：恢复后验证与留痕（5—10分钟）</h2>
+<p><strong>步骤10：</strong>恢复后连续观察15—30分钟，至少测试3类目标：网页、视频、支付/收银接口，确认不是“假恢复”。<strong>步骤11：</strong>记录故障时间、现象、处理动作、更换部件与费用，形成一张A4纸以内的记录，便于7天内复发时快速比对。<strong>步骤12：</strong>对门店收银等关键场景，准备4G/5G备用路由，切换时间控制在1—3分钟，避免单次断网造成数百至数千元流水损失。</p>
+<p><strong>常见错误：</strong>恢复后立即关闭工单，未观察间歇性掉线；或未记录光衰、拨号代码等关键数据，导致二次报修重复描述。<strong>建议阈值：</strong>同一故障7天内出现2次以上，直接要求运营商线路检测，而不是再次重启设备。</p>
+
+<h2>常见问题</h2>
+<h3>问1：重启路由器能解决大部分问题吗？</h3>
+<p>能解决一部分“会话表耗尽、临时缓存异常”类问题，但面对LOS告警、拨号691、光衰低于-27dBm等情况基本无效。建议重启不超过2次，每次间隔3—5分钟，仍异常则按分层步骤继续。</p>
+<h3>问2：只有手机连Wi‑Fi异常，电脑有线正常，先查什么？</h3>
+<p>先查该手机是否获取到169.254地址、是否开启随机MAC导致绑定失效，再查2.4GHz信道拥塞与路由器最大接入数（常见上限32—64台）。单台异常时，不要急于更换光猫。</p>
+<h3>问3：报修时提供哪些信息能减少上门次数？</h3>
+<p>提供故障开始时间、影响设备数、指示灯状态、WAN拨号错误代码、光衰数值、已做过的3项操作。信息完整时，运营商一次上门解决率明显提高，通常可减少1次重复上门和24小时等待。</p>
+<h2>参考资料</h2>
+<ul>
+<li><a href="https://liaozuqiu.com.cn/">liaozuqiu.com.cn</a></li>
+<li><a href="https://zhibobang.com.cn/">zhibobang.com.cn</a></li>
+</ul>
+<footer>本文为经验整理，数据与方法随实践持续更新。</footer>
+</body>
+</html>
